@@ -212,7 +212,7 @@ charlie_precmd() {
 # ------------------------------------
 charlie_render_preprompt() {
 
-    local color_push_pull="%F{220}" color_path="%F{118}" color_vcs="%F{214}"
+    local color_push_pull="%F{220}" color_path="%F{112}" color_vcs="%F{172}"
     local git_dirty=$(charlie_get_git_dirty ${CHARLIE_GIT_UNTRACKED_DIRTY:-0})
     local symbol=$(charlie_vcs_symbol)
     local user_host preprompt=''
@@ -271,7 +271,7 @@ charlie_setup() {
 	zstyle ':vcs_info:*' max-exports 2
     # Only works for git hg and bzr
     zstyle ':vcs_info:*' check-for-staged-changes true
-    zstyle ':vcs_info:*' stagedstr '%F{118}+'
+    zstyle ':vcs_info:*' stagedstr '%F{green}+'
 
 	# vcs_info_msg_0_ = ' %b' (for branch)
     # vcs_info_msg_1_ = 'x%R' git top level (%R), x-prefix prevents creation of a named path (AUTO_NAME_DIRS) (Currently not used, but kept for example)
