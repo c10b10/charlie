@@ -15,6 +15,8 @@ staged files (with a `+`).
 - Username and host only displayed when in an SSH session.
 - Shows the current path in the title and the current folder & command when a process is running.
 - Makes an excellent starting point for your own custom prompt.
+- Has slight SVN support.
+- Includes [functios to show RVN and / or Python virtualenv info](https://github.com/c10b10/charlie/blob/master/charlie.zsh#L78-L93).
 
 ## Requirements
 
