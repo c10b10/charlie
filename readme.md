@@ -16,7 +16,7 @@ staged files (with a `+`).
 - Shows the current path in the title and the current folder & command when a process is running.
 - Makes an excellent starting point for your own custom prompt.
 
-## Install
+## Requirements
 
 Requires git 2.3.0+ and ZSH 5.0.0+.
 
