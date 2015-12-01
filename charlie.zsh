@@ -124,8 +124,10 @@ charlie_get_git_push_pull_arrows() {
 # Checks if git is dirty
 # If the paramenter is not 0, it considers untracked files dirty
 charlie_get_git_dirty() {
+
     # Exit if this isn't a git repo
-    [ -d .git ] || return
+    command git status &> /dev/null
+    (( $? )) && return
 
     # If untracked files aren't considered dirty...
     if [[ $1 == "0" ]]; then
@@ -216,9 +218,10 @@ charlie_render_preprompt() {
     local git_dirty=$(charlie_get_git_dirty ${CHARLIE_GIT_UNTRACKED_DIRTY:-0})
     local symbol=$(charlie_vcs_symbol)
     local user_host preprompt=''
+    setopt promptsubst
 
 	# Show username@host if logged in through SSH
-	[[ "$SSH_CONNECTION" != '' ]] && user_host=' %F{154}%n%f@%F{220}%m%f'
+	[[ "$SSH_CONNECTION" == '' ]] && user_host=' %F{081}%n%f@%F{220}%m%f'
 
 	# Show username@host if root, with username in white
 	[[ $UID -eq 0 ]] && user_host=' %F{243}%n%F{250}@%F{220}%m%f'
@@ -236,9 +239,9 @@ charlie_render_preprompt() {
     #    preprompt+=" ≫ "
     #fi
 	# +versioning info
-	preprompt+="$color_vcs${vcs_info_msg_0_}${git_dirty}%f"
-	# +username and machine if applicable
-	preprompt+=$user_host
+    [ ! -z $vcs_info_msg_0_ ] && preprompt+="$color_vcs${vcs_info_msg_0_}${git_dirty}"
+    # +username and machine if applicable (remove trailing space before concat)
+	preprompt=${preprompt%% }$user_host
 
     print -P "\n${preprompt}"
 }
