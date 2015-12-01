@@ -221,7 +221,7 @@ charlie_render_preprompt() {
     setopt promptsubst
 
 	# Show username@host if logged in through SSH
-	[[ "$SSH_CONNECTION" == '' ]] && user_host=' %F{081}%n%f@%F{220}%m%f'
+	[[ "$SSH_CONNECTION" != '' ]] && user_host=' %F{081}%n%f@%F{220}%m%f'
 
 	# Show username@host if root, with username in white
 	[[ $UID -eq 0 ]] && user_host=' %F{243}%n%F{250}@%F{220}%m%f'
