@@ -88,7 +88,7 @@ charlie_get_rvm_info() {
 }
 
 # Outputs information about the python virtualenv
-function virtualenv_info {
+charlie_virtualenv_info() {
     [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
 }
 
