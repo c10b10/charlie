@@ -1,6 +1,6 @@
 # Charlie
 
-A zsh command promp based on [Sindre Sorhus's Pure](https://github.com/sindresorhus/pure).
+A zsh command prompt based on [Sindre Sorhus's Pure](https://github.com/sindresorhus/pure).
 
 ![](screenshot.png)
 

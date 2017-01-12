@@ -44,6 +44,7 @@ alias ls="ls -FG"
 export LSCOLORS='Gxfxcxdxbxeggdabagacad'
 # Define colors for the completion system.
 export LS_COLORS='di=1;36;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=34;46:cd=36;43:su=0;41:sg=0;46:tw=0;42:ow=0;43:'
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # Generic helpers
 # ---------------
@@ -89,7 +90,10 @@ charlie_get_rvm_info() {
 
 # Outputs information about the python virtualenv
 charlie_virtualenv_info() {
-    [ $VIRTUAL_ENV ] && echo '('`basename $VIRTUAL_ENV`') '
+    if [[ "$VIRTUAL_ENV" != '' ]]; then
+        local base_virtualenv="$(basename $VIRTUAL_ENV)"
+        echo "%F{003}(%F{038}$base_virtualenv%F{003})%f "
+    fi
 }
 
 # Output a different symbol depending on the active versioning system
@@ -203,7 +207,7 @@ charlie_precmd() {
 	# Get the VCS info
 	vcs_info
 
-    # Perform the async git fetch
+  # Perform the async git fetch
 	charlie_async_tasks
 
 	# Render the first line of the prompt
@@ -230,6 +234,8 @@ charlie_render_preprompt() {
     preprompt+="$symbol"
     # spacing
     [[ -n $symbol ]] && preprompt+=" "
+    # +python virtualenv
+    preprompt+="$(charlie_virtualenv_info)"
 	# +git pull/push arrows
     preprompt+="$color_push_pull$(charlie_get_git_push_pull_arrows)%f"
 	# +the path
@@ -287,7 +293,7 @@ charlie_setup() {
     zstyle ':vcs_info:svn:*' branchformat '%r'
 
 	# Prompt turns red if the previous command didn't exit with 0
-    PROMPT="%(?.%F{081}.%F{white}[%?] %F{red})${CHARLIE_PROMPT_SYM:-❯}%f "
+    PROMPT="%(?.%F{081}.%F{white}[%?] %F{red})(zsh)${CHARLIE_PROMPT_SYM:-❯}%f "
 }
 
 charlie_setup "$@"
